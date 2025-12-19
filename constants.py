@@ -61,4 +61,7 @@ class Constants:
     TEMPERATURE_ERROR = "Temperature Error"
     MEASUREMENT_ERROR = "Measurement Error"
     TIMING_ERROR = "Timing Error"
+    ORDER_ERORR = "Order Error"
+    MISSING_STEP = "Missing Step"
+    OTHER = "Other"
 

@@ -37,20 +37,25 @@ class CaptainCookStepDataset(Dataset):
             self._init_other_split_from_file(config, phase)
 
     def _build_error_category_label_name_map(self):
-        self._error_category_name_label_map = {const.TECHNIQUE_ERROR: 6, const.PREPARATION_ERROR: 2,
-                                               const.TEMPERATURE_ERROR: 3, const.MEASUREMENT_ERROR: 4,
-                                               const.TIMING_ERROR: 5}
+        self._error_category_name_label_map = {const.PREPARATION_ERROR: 0, const.MEASUREMENT_ERROR: 1,
+                                               const.ORDER_ERORR: 2, const.TIMING_ERROR: 3,
+                                               const.TECHNIQUE_ERROR: 4, const.TEMPERATURE_ERROR: 5,
+                                               const.MISSING_STEP: 6, const.OTHER: 7}
 
-        self._error_category_label_name_map = {6: const.TECHNIQUE_ERROR, 2: const.PREPARATION_ERROR,
-                                               3: const.TEMPERATURE_ERROR, 4: const.MEASUREMENT_ERROR,
-                                               5: const.TIMING_ERROR}
+        self._error_category_label_name_map = {0: const.PREPARATION_ERROR, 1: const.MEASUREMENT_ERROR,
+                                               2: const.ORDER_ERORR, 3: const.TIMING_ERROR,
+                                               4: const.TECHNIQUE_ERROR, 5: const.TEMPERATURE_ERROR,
+                                               6: const.MISSING_STEP, 7: const.OTHER}
 
         self._category_name_map = {
             'TechniqueError': const.TECHNIQUE_ERROR,
             'PreparationError': const.PREPARATION_ERROR,
             'TemperatureError': const.TEMPERATURE_ERROR,
             'MeasurementError': const.MEASUREMENT_ERROR,
-            'TimingError': const.TIMING_ERROR
+            'TimingError': const.TIMING_ERROR,
+            'OrderError': const.ORDER_ERORR,
+            'MissingStep': const.MISSING_STEP,
+            'Other': const.OTHER
         }
 
     def _build_error_category_labels(self):

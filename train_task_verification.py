@@ -25,7 +25,7 @@ from dataloader.TaskVerificationDataset import TaskVerificationDataset
 from core.models.task_verifier import TaskVerifier, SimpleMLPVerifier
 
 
-def get_recipe_groups(recording_ids, annotations_file='annotations/annotation_json/step_annotations.json'):
+def get_recipe_groups(recording_ids, annotations_file='annotations/annotation_json/complete_step_annotations.json'):
     """
     Group recordings by recipe (activity_id).
     
@@ -163,7 +163,7 @@ def evaluate(model, dataloader, device):
 
 def leave_one_recipe_out_cv(
     data_dict,
-    annotations_file='annotations/annotation_json/step_annotations.json',
+    annotations_file='annotations/annotation_json/complete_step_annotations.json',
     model_type='transformer',
     num_epochs=50,
     batch_size=8,
@@ -358,7 +358,7 @@ def main():
     parser.add_argument('--features_dir', type=str, default='egovlp',
                         help='Directory containing pre-extracted features')
     parser.add_argument('--annotations_file', type=str, 
-                        default='annotations/annotation_json/step_annotations.json',
+                        default='annotations/annotation_json/complete_step_annotations.json',
                         help='Path to step annotations JSON')
     parser.add_argument('--split_file', type=str, 
                         default='er_annotations/recordings_combined_splits.json',
@@ -403,7 +403,7 @@ def main():
     # Initialize step localizer
     print("Initializing step localizer...")
     localizer = StepLocalizer(
-        annotations_file=args.annotations_file,
+        annotations_path=args.annotations_file,
         features_dir=args.features_dir
     )
     

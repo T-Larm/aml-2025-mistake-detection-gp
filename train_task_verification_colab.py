@@ -243,6 +243,11 @@ def main():
                 for m, h in [('accuracy', 'train_accuracy')]: training_history[h].append(train_metrics[m])
                 for m, h in [('accuracy', 'test_accuracy'), ('f1', 'test_f1'), ('auc', 'test_auc'), ('precision', 'test_precision'), ('recall', 'test_recall')]: training_history[h].append(test_metrics[m])
                 
+                # Print training and test metrics
+                print(f"Epoch {epoch+1:3d}/{args.num_epochs} - Train Loss: {train_loss:.4f}")
+                print(f"  Train -> Acc: {train_metrics['accuracy']:.4f} | F1: {train_metrics['f1']:.4f} | AUC: {train_metrics['auc']:.4f}")
+                print(f"  Test  -> Acc: {test_metrics['accuracy']:.4f} | F1: {test_metrics['f1']:.4f} | AUC: {test_metrics['auc']:.4f}\n")
+                
                 if test_metrics['f1'] > best_test_f1:
                     best_test_f1 = test_metrics['f1']
                     best_metrics_single_epoch = test_metrics
@@ -252,6 +257,7 @@ def main():
                     patience_counter += 1
                     
                 if args.enable_early_stopping and patience_counter >= args.patience:
+                    print(f"⚠️  Early stopping at epoch {epoch+1} (No F1 improvement for {args.patience} eval steps)\n")
                     break
                     
         num_to_average = min(args.average_last_n_evals, len(training_history['test_f1']))

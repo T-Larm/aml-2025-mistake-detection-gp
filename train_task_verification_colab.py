@@ -177,6 +177,7 @@ def main():
     parser.add_argument('--threshold', type=float, default=0.57)
     parser.add_argument('--weight_decay', type=float, default=2e-2)
     parser.add_argument('--patience', type=int, default=10)
+    parser.add_argument('--enable_early_stopping', action='store_true', default=True, help='Enable early stopping based on patience')
     parser.add_argument('--average_last_n_evals', type=int, default=10)
     parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu')
     parser.add_argument('--save_dir', type=str, default='results/task_verification')
@@ -250,7 +251,7 @@ def main():
                 else:
                     patience_counter += 1
                     
-                if patience_counter >= args.patience:
+                if args.enable_early_stopping and patience_counter >= args.patience:
                     break
                     
         num_to_average = min(args.average_last_n_evals, len(training_history['test_f1']))
